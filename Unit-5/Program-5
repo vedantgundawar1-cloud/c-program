@@ -1,1 +1,45 @@
+Experiment 5: Count the Number of Lines in a Text File
+#include <stdio.h>
 
+int main()
+{
+    FILE *fp;
+    char filename[100];
+    int ch, lines = 0;
+    int hasContent = 0;
+    int lastChar = '\n';
+
+    printf("Enter file name: ");
+    scanf("%99s", filename);
+
+    fp = fopen(filename, "r");
+
+    if (fp == NULL)
+    {
+        printf("File cannot be opened.\n");
+        return 1;
+    }
+
+    while ((ch = fgetc(fp)) != EOF)
+    {
+        hasContent = 1;
+
+        if (ch == '\n')
+        {
+            lines++;
+        }
+
+        lastChar = ch;
+    }
+
+    if (hasContent && lastChar != '\n')
+    {
+        lines++;
+    }
+
+    printf("Number of lines = %d\n", lines);
+
+    fclose(fp);
+
+    return 0;
+}
